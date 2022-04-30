@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block body %}
+<div>
+    {% if user.is_authenticated %}
+    <div class="side">
+        <div class="mine">
+            <div id="u_headportrait">
+                <img src=""/>
+            </div>
+            <div id="u_information">
+                <p>用户昵称：{{user.username}}</p>
+                <p>个性签名：{{user.signature}}</p>
+            </div>
+        </div>
+        <div class="calender">非必须
+        </div>
+        <div class="myposting">
+            {% for myposting in mypostings %}
+            <a href="{% url 'showposting' %}? p={{myposting.id}}">
+                <p>{{myposting.p_Title}}</p>
+            </a>
+            {% endfor %}
+        </div>
+    <div>
+    {% endif %}
+    <div class="postings">
+        {% for posting in postings %}
+            <a href="{% url 'showposting' %}? p={{posting.id}}">
+                <div class="posting">
+                    <p>{{posting.p_Title}}</p>
+                    <p>{{posting.p_Des}}</p>
+                    <p>{{posting.p_Date}}</p>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

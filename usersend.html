@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发帖</title>
+</head>
+<body>
+    <form action="/sendmsg/" method="post">
+        {% csrf_token %}
+        发帖人 <input type="text" name="user" /> <br>
+        内容 <input style="height:100px;width:500px" type="text" name="msg" /> <br>
+        <input type="submit" value="帖子发布" />
+    </form>
+
+</body>
+</html>
