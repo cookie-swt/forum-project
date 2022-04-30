@@ -5,13 +5,16 @@
 </script>
 
 {% extends "layout.html" %}
+
+<link rel="stylesheet" type="text/css" href="/static/css/posting.css">
+
 {% block body %}
     <div class="firstfloor">
         <h1>{{posting.p_Title}}</h1>
         <div id="describtion">
             {{posting.p_Des}}
         </div>
-        <div id="">
+        <div id="collect">
             <form method="GET" action="/collect">
                 <input name="p" value={{posting.id}} type="number" style="display:none"> 
                 <input type="submit" value="收藏">
@@ -44,5 +47,4 @@
         </div>
     </div>
     {% endfor %}
-
 {% endblock %}

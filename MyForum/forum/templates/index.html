@@ -1,11 +1,12 @@
 {% extends "layout.html" %}
+<link rel="stylesheet" type="text/css" href="/static/css/index.css">
 {% block body %}
 <div>
     {% if user.is_authenticated %}
     <div class="side">
         <div class="mine">
             <div id="u_headportrait">
-                <img src=""/>
+                <img style="width:50px;height:50px;" src="{{user.headportrait}}"/>
             </div>
             <div id="u_information">
                 <p>用户昵称：{{user.username}}</p>
@@ -21,9 +22,9 @@
         </div>
         <div class="mycollection">
             {% for collection in mycollection %}
-            <a href="{% url 'showposting' %}? p={{collection.id}}">
-                <p>{{collection.p_Title}}</p>
-            </a>
+                <a href="{% url 'showposting' %}? p={{collection.id}}">
+                    <p>{{collection.p_Title}}</p>
+                </a>
             {% endfor %} 
         </div>           
     <div>
@@ -32,7 +33,7 @@
         {% for posting in postings %}
             <a href="{% url 'showposting' %}? p={{posting.id}}">
                 <div class="posting">
-                    <p>{{posting.p_Title}}</p>
+                    <h5>{{posting.p_Title}}</h5>
                     <p>{{posting.p_Des}}</p>
                     <p>{{posting.p_Date}}</p>
                 </div>
