@@ -27,7 +27,7 @@
                 </li>
                 {% if user.is_superuser %}
                 <li class="nav-item">
-                    <a class="nav-link" href="http://127.0.0.1:8000/admin/">管理</a>
+                    <a class="nav-link" href="{% url 'manageposting' %}">管理</a>
                 </li>
                 {% endif %}
             {% endif %}

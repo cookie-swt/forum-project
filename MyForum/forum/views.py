@@ -16,8 +16,8 @@ def entry(request):
 
 def index(request):
     user=request.user
-    postings=Posting.objects.all()
-    mypostings=Posting.objects.filter(p_User=user).all()
+    postings=Posting.objects.filter(p_See=True).all()
+    mypostings=Posting.objects.filter(landlord_id=user.id).all()
     return render(request,'index.html',{postings:postings , mypostings:mypostings})
 
 def showPosting(request):
@@ -33,10 +33,11 @@ def like(request):
 
 def addComment(request):
     no=request.GET['p']
+    posting=Posting.objects.get(id=no)
     content=request.GET['content']
     user=request.user
     date=timezone.localdate()
-    comment=Comment(c_User_id=user,c_Content=content,c_Date=date)
+    comment=Comment(c_User_id=user,c_Content=content,c_Date=date,c_Posting_id=posting)
     comment.save()
     return True
 
@@ -104,3 +105,40 @@ def Showmyself(request):
     return render(request,'myself.html',{
         "user" : user
     })
+
+def icansee(request):
+    no=request.GET['p']
+    posting=Posting.objects.filter(id=no).update(p_See=False)
+    return True
+
+
+#写帖子
+def addPosting(request):
+    user = request.user
+    title=request.GET('t')
+    content = request.GET('c')
+    date=timezone.localdate()
+    posting=Posting(landlord_id=user,p_Title=title,p_Des=content,p_Date=date)
+    posting.save()
+    return render(request, "posting.html",{posting:posting})
+
+def managePosting(request):
+    postings=Posting.objects.all()
+    return render(request,'ManagePosting.html',{postings:postings})
+
+#删除帖子
+def deletePosting(request):
+    no=request.GET['p']
+    posting=Posting.objects.filter(id=no).delete()
+    return True
+
+def manageComment(request):
+    no=request.GET['p']
+    posting=Posting.objects.get(id=no)
+    comments=Comment.objects.filter(c_Posting_id=posting).all()
+    return render(request,'ManageComment.html',{comments:comments})
+
+def deleteComment(request):
+    no=request.GET['c']
+    comment=Comment.objects.filter(id=no).delete
+    return True

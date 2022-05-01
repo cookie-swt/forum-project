@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div class="addposting">
+        <form action="/addposting" method="GET">
+            {% csrf_token %}
+            <input type="text" name="t" placeholder="标题"> 
+            <input style="height:100px;width:500px" type="textarea" name="c" placeholder="内容">
+            <input type="submit" value="发布" >
+        </form>
+    <div class="addposting">
+</body>

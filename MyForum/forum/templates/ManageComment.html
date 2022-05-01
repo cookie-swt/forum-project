@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    {% for comment in comments %}
+    <div class="comment">
+        <div id="c_content">
+            {{comment.c_Content}}
+        </div>
+        <div class="c_Like">
+            <form method="GET" action="/deletecomment">
+                <input type="number" value={{comment.id}} name="c" style="display:none">
+                <input type="submit" value="删除该条评论">
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}
