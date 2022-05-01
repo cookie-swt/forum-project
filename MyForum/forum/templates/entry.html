@@ -1,15 +1,15 @@
 {% load static %}
-
+<link rel="stylesheet" type="text/css" href="/static/css/entry.css">
 <!DOCTYPE html>
 <html>
     <h1>欢迎来到mini树洞！<h1>
     <body>
         <div class="entry_nav">
             <form method="GET" action="/login">
-                <input type="submit" value="我要登录^_^">
+                <input id="button" type="submit" value="我要登录^_^">
             </form>
             <form method="GET" action="/stroll">
-                <input type="submit" value="我就逛逛QAQ">
+                <input id="button" type="submit" value="我就逛逛QAQ">
             </form>
             没有账号？点击这里<a href={% url 'register' %}>注册</a>吧~
         </div>

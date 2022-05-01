@@ -1,0 +1,18 @@
+h1 {
+    font-family: YouYuan, sans-serif;
+    font-size: 50px;
+    font-weight: bolder;
+}
+
+.entry_nav {
+    width: 200px;
+    margin: auto;
+    padding: 10px;
+    border: solid;
+    border-radius: 40px;
+    border-color: #68D389;
+}
+
+#button {
+    background-color: #68D389;
+}
