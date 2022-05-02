@@ -1,8 +1,8 @@
-from django.urls import URLPattern, path
+from django.urls import  path
 from . import views
 
-URLPattern=[
-    path("",views.entry),
+urlpatterns=[
+    path("",views.entry,name="entry"),
     path("index",views.index,name="index"),
     path("showposting",views.showPosting,name="showposting"),
     path("like",views.like,name="like"),
@@ -14,8 +14,8 @@ URLPattern=[
     path("myself",views.Showmyself,name='myself'),
     path("addposting",views.addPosting,name="addposting"),
     path("icansee",views.icansee,name="icansee"),
-    path("manageposting",views.manage,name="managepodting"),
+    path("manageposting",views.managePosting,name="managepodting"),
     path("deleteposting",views.deletePosting,name="deleteposting"),
     path("managecomment",views.manageComment,name="managecomment"),
-    path("deletecomment",views.deleteComment,name="deletecomment"),
+    path("deletecomment",views.deleteComment,name="deletecomment")
 ]

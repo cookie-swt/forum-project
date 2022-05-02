@@ -23,7 +23,7 @@ def index(request):
 def showPosting(request):
     no=request.GET['p']
     posting=Posting.objects.get(id=posting.id)
-    comments=Comment.objects.filter(c_Posting=posting).all()
+    comments=Comment.objects.filter(c_Posting_id=posting).all()
     return render(request,'posting.html',{posting:posting,comments:comments})
 
 def like(request):
