@@ -1,7 +1,15 @@
-{% extends "layout.html" %}
+{% load static %}
 
-{% block body %}
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/logareg.css">
+    <title>Login</title>
+</head>
+<body>
     <h2>Login</h2>
 
     {% if message %}
@@ -16,8 +24,13 @@
         <div class="form-group">
             <input class="form-control" type="password" name="password" placeholder="Password">
         </div>
-        <input class="btn btn-primary" type="submit" value="Login">
+        <div class="bt">
+            <input class="btn" type="submit" value="Login">
+        </div>
+        
     </form>
-    没有账号？点击这里<a href={% url 'register' %}>注册</a>吧~
 
-{% endblock %}
+    没有账号？点击这里<a href={% url 'register' %}>注册</a>吧~
+</body>
+</html>
+
