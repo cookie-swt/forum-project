@@ -1,0 +1,26 @@
+.form-group{
+    margin: 25px auto;
+    text-align: center;
+}
+
+.form-control{
+    border-radius: 8px;
+    border-style: solid;
+    border-width: 3px;
+    width: 40%;
+    height: 35px;
+    border-color: #68D389;
+}
+
+.bt{
+    text-align: center;
+}
+
+.btn{
+    background-color: #68D389;
+    border-style: none;
+    border-radius: 9px;
+    width: 160px;
+    height: 40px;
+    cursor: pointer;
+}

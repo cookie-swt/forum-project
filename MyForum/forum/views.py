@@ -101,6 +101,29 @@ def log_view(request):
 
 @login_required
 def Showmyself(request):
+    if request.meyhod=='POST':
+        username=request.POST['username']
+        signature=request.POST['signature']
+        img=request.POST['img']
+        user=request.user
+        if username!='':
+            try:
+                user.username=username
+                user.save()
+            except IntegrityError:
+                return render(request,'myself.html',{
+                    'user' : user,
+                    'message': "Username already taken."
+                })
+        if signature!='':
+            user.signature=signature
+            user.save()
+        if img!='':
+            user.headportrait=img
+            user.save()
+        return render(request,'myself.html',{
+            "user" : user
+        })
     user=request.user
     return render(request,'myself.html',{
         "user" : user
