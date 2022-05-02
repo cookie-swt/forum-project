@@ -1,9 +1,25 @@
-.form-group{
+.TITLE {
+    text-align: center;
+    width: 100%;
+    display: table;
+    margin-top: 100px;
+}
+
+h2 {
+    display: table-cell;
+    vertical-align: center;
+}
+
+.message {
+    text-align: center;
+}
+
+.form-group {
     margin: 25px auto;
     text-align: center;
 }
 
-.form-control{
+.form-control {
     border-radius: 8px;
     border-style: solid;
     border-width: 3px;
@@ -12,15 +28,25 @@
     border-color: #68D389;
 }
 
-.bt{
+.bt {
     text-align: center;
 }
 
-.btn{
+.btn {
     background-color: #68D389;
     border-style: none;
     border-radius: 9px;
     width: 160px;
     height: 40px;
     cursor: pointer;
+}
+
+.haveAccount {
+    margin: 20px;
+    text-align: center;
+}
+
+.noAccount {
+    margin: 20px;
+    text-align: center;
 }

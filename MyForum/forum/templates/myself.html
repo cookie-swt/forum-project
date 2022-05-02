@@ -28,7 +28,7 @@
         </div>
         <div class="chana">
             <form action="{% url 'myself' %}" method="post">
-                {% csrf_tocken %}
+                {% csrf_token %}
                 <input type="text" name="username" placeholder="修改用户名" class="input">
                 <input type="submit" id="subbtn" value="确定提交" class="button">
             </form>

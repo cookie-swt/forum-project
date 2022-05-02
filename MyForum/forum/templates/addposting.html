@@ -5,7 +5,7 @@
 </head>
 {% block body %}
     <div class="addposting">
-        <form action="/addposting" method="GET">
+        <form action="/addposting" method="POST">
             {% csrf_token %}
             <input type="text" name="t" placeholder="标题"> 
             <input style="height:100px;width:500px" type="textarea" name="c" placeholder="内容">

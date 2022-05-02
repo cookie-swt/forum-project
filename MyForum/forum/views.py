@@ -1,4 +1,4 @@
-from audioop import reverse
+from django.urls import reverse
 from sys import float_repr_style
 from django.db import IntegrityError
 from django.shortcuts import render
@@ -61,17 +61,17 @@ def register(request):
 
         if password==confirmation:
             try:
-                user=User.objects.create_uaer(username,email,password)
+                user=User.objects.create_user(username,email,password)
                 user.save()
             except IntegrityError:
                 return render(request,'register.html',{
                     'message': "Username already taken."
                 })
             login(request,user)
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse("index"))
         else:
             return render(request,'register.html',{
-                "message" : "Password doesn't match the confirmation."
+                "message" : "两次输入的密码不同哦~"
             })
     else:
         return render(request,'register.html')
@@ -79,7 +79,7 @@ def register(request):
 @login_required
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse("index"))
 
 def log_view(request):
     if request.method=='POST':
@@ -91,17 +91,17 @@ def log_view(request):
             auth_obj=authenticate(request,username=username,password=password)
             if auth_obj:
                 auth.login(request,auth_obj)
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse("index"))
         else:
             return render(request,'login.html',{
-                "message": "Invalid username or password."
+                "message": "用户名或者密码错啦！"
             })
     else:
         return render(request,'login.html')
 
 @login_required
 def Showmyself(request):
-    if request.meyhod=='POST':
+    if request.method=='POST':
         username=request.POST['username']
         signature=request.POST['signature']
         img=request.POST['img']
@@ -137,13 +137,16 @@ def icansee(request):
 
 #写帖子
 def addPosting(request):
-    user = request.user
-    title=request.GET('t')
-    content = request.GET('c')
-    date=timezone.localdate()
-    posting=Posting(landlord_id=user,p_Title=title,p_Des=content,p_Date=date)
-    posting.save()
-    return render(request, "posting.html",{posting:posting})
+    if request.method == 'POST':
+        user = request.user
+        title=request.POST['t']
+        content = request.POST['c']
+        date=timezone.localdate()
+        posting=Posting(landlord_id=user,p_Title=title,p_Des=content,p_Date=date)
+        posting.save()
+        return render(request, "posting.html",{posting:posting})
+    else:
+        return render(request,'addposting.html')
 
 def managePosting(request):
     postings=Posting.objects.all()

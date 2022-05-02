@@ -10,10 +10,11 @@
     <title>Register</title>
 </head>
 <body>
-    <h2>Register</h2>
-
+    <div class="TITLE">
+        <h2>注册</h2>
+    </div>
     {% if message %}
-        <div>{{ message }}</div>
+        <div class="message">{{ message }}</div>
     {% endif %}
 
     <form action="{% url 'register' %}" method="post">
@@ -31,11 +32,12 @@
             <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
         </div>
         <div class="bt">
-            <input class="btn" type="submit" value="Register">
+            <input class="btn" type="submit" value="注册">
         </div>
         
     </form>
-    已经有账号？！那快来<a href="{% url 'login' %}">登录</a>吧！
-
+    <div class="haveAccount">
+        已经有账号？！那快来<a href="{% url 'login' %}">登录</a>吧！
+    </div>
 </body>
 </html>

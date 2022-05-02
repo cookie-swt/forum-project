@@ -5,7 +5,7 @@
     <head>
         <title>{% block title %}Forum{% endblock %}</title>
     </head>
-    <body >
+    <body>
         <h1>欢迎来到mini树洞！</h1>
         <div>
             {% if user.is_authenticated %}
@@ -15,23 +15,24 @@
             {% endif %}
         </div>
         <ul class="nav" >
+            <li class="nav_item" >
+                <a class="nav-link" href="{% url 'index' %}">首页</a>
+            </li>
             {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'addposting' %}">我要发帖</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'chat' %}">我想聊聊</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="{% url 'myself' %}">我是谁啊</a>
-                </li>
-                {% if user.is_superuser %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'manageposting' %}">管理</a>
-                </li>
-                {% endif %}
+            <li class="nav_item">
+                <a class="nav-link" href="{% url 'addposting' %}">我要发帖</a>
+            </li>
+            <li class="nav_item" >
+                <a class="nav-link" href="{% url 'myself' %}">我是谁啊</a>
+            </li>
+            {% if user.is_superuser %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'manageposting' %}">管理</a>
+            </li>
+            {% endif %}
             {% endif %}
         </ul>
+        <hr>
         {% block body %}
         {% endblock %}
     </body>
