@@ -18,14 +18,16 @@ window.onload=function(){
         btn_name.style.display="none";
         input.placeholder="修改签名";
         input.style.display="block";
-        subbtn.style.display="block";  
+        subbtn.style.display="block";
+        input.name="signature";
     }
     btn_img.onclick=function(){
         btn_img.style.display="none";
         btn_sig.style.display="none";
         btn_name.style.display="none";
-        input.placeholder="修改签名";
+        input.placeholder="修改头像";
         input.style.display="block";
-        subbtn.style.display="block";       
+        subbtn.style.display="block";
+        input.name="img";      
     }
 }

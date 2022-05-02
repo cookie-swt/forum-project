@@ -59,13 +59,17 @@ def register(request):
         password=request.POST['password']
         confirmation=request.POST['confirmation']
 
+        if not( username and email and password and confirmation ):
+            return render(request,'register.html',{
+                'message' : "什么都不输--君欲使我指雁为羹乎"
+            })
         if password==confirmation:
             try:
                 user=User.objects.create_user(username,email,password)
                 user.save()
             except IntegrityError:
                 return render(request,'register.html',{
-                    'message': "Username already taken."
+                    'message': "用户名已被占用--可以更改，请勿复吟“僧推月下门”"
                 })
             login(request,user)
             return HttpResponseRedirect(reverse("index"))
@@ -102,23 +106,23 @@ def log_view(request):
 @login_required
 def Showmyself(request):
     if request.method=='POST':
-        username=request.POST['username']
-        signature=request.POST['signature']
-        img=request.POST['img']
+        username=request.POST.get('username')
+        signature=request.POST.get('signature')
+        img=request.POST.get('img')
         user=request.user
-        if username!='':
+        if username is not None:
             try:
                 user.username=username
                 user.save()
             except IntegrityError:
                 return render(request,'myself.html',{
                     'user' : user,
-                    'message': "Username already taken."
+                    'message': "用户名已存在--可以更改，请勿复吟“僧推月下门”"
                 })
-        if signature!='':
+        if signature is not None:
             user.signature=signature
             user.save()
-        if img!='':
+        if img is not None:
             user.headportrait=img
             user.save()
         return render(request,'myself.html',{
