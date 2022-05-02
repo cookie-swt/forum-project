@@ -1,7 +1,15 @@
-{% extends "layout.html" %}
+{% load static %}
 
-{% block body %}
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/logareg.css">
+    <title>Register</title>
+</head>
+<body>
     <h2>Register</h2>
 
     {% if message %}
@@ -22,9 +30,13 @@
         <div class="form-group">
             <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
         </div>
-        <input class="btn btn-primary" type="submit" value="Register">
+        <div class="bt">
+            <input class="btn" type="submit" value="Register">
+        </div>
+        
     </form>
 
     Already have an account? <a href="{% url 'login' %}">Log In here.</a>
 
-{% endblock %}
+</body>
+</html>

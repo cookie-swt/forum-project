@@ -23,7 +23,7 @@
                     <a class="nav-link" href="{% url 'chat' %}">我想聊聊</a>
                 </li>
                 <li>
-                    <a class="nav-link" href="{url 'myself' %}">我是谁啊</a>
+                    <a class="nav-link" href="{% url 'myself' %}">我是谁啊</a>
                 </li>
                 {% if user.is_superuser %}
                 <li class="nav-item">
