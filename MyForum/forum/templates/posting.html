@@ -5,17 +5,32 @@
 </script>
 
 {% extends "layout.html" %}
+
+<link rel="stylesheet" type="text/css" href="/static/css/posting.css">
+
 {% block body %}
     <div class="firstfloor">
         <h1>{{posting.p_Title}}</h1>
+        <div id="date">
+            发表于 : {{posting.p_Date}}
+        </div>
         <div id="describtion">
             {{posting.p_Des}}
         </div>
-        <div id="">
-            <form method="GET" action="/collect">
-                <input name="p" value={{posting.id}} type="number" style="display:none"> 
-                <input type="submit" value="收藏">
-            </form>
+        <div id="collect">
+        {% if user.is_authenticated %}
+            {% if user.id == posting.landlord_id.id %}
+                <form method="GET" action="/icansee">
+                    <input name="p" value={{posting.id}} type="number" style="display:none">
+                    <input type="submit" value="仅我可见">
+                </from>
+            {% endif %}
+            {% if user.id != posting.landlord_id.id %}
+                <form method="GET" action="/collect">
+                    <input name="p" value={{posting.id}} type="number" style="display:none">
+                    <input type="submit" value="收藏">
+                </from>
+        {% endif %}
             <button onclick="comment()">评论</button>
         </div>
     </div>
@@ -44,5 +59,4 @@
         </div>
     </div>
     {% endfor %}
-
 {% endblock %}

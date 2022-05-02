@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+<link rel="stylesheet" type="text/css" href="/static/css/ManagePosting.css">
+{% block body %}
+    <div class="postings">
+        {% for posting in postings %}
+            <div class="posting">
+                标题：<span>{{posting.p_Title}}</span>
+                发布时间：<span>{{posting.p_Date}}</span>
+                <form id="button" action="/deleteposting" method="GET">
+                    <input type="number" value={{posting.id}} name="p" style="display:none">
+                    <input style="backgroundcolor:#68D389" type="submit" value="删除该贴">
+                </form>
+                <form id="button" action="/managecomment" method="GET">
+                    <input type="number" value={{posting.id}} name="p" style="display:none">
+                    <input style="backgroundcolor:#68D389" type="submit" value="管理评论">
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

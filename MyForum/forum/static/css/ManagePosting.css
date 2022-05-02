@@ -1,0 +1,10 @@
+#button {
+    display: inline;
+}
+
+.posting {
+    border-bottom: solid;
+    border-color: #68D389;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -1,0 +1,13 @@
+.firstfloor {
+    width: 800px;
+    border-bottom: solid;
+    border-color: #68D389;
+    margin: 20px auto;
+}
+
+.comment {
+    width: 800px;
+    border-bottom: dashed;
+    border-color: #68D389;
+    margin: 20px auto;
+}
