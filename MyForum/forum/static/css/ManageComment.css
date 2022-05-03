@@ -1,6 +1,19 @@
 .comment {
     width: 800px;
     border-bottom: dashed;
-    border-color: #68D389;
+    border-color: gray;
     margin: 20px auto;
+}
+
+#c_content {
+    margin: 10px 0;
+}
+
+#but_s {
+    background-color: #FFD100;
+    width: 100px;
+    height: 30px;
+    border: solid;
+    border-color: #fefefe;
+    border-radius: 10px;
 }

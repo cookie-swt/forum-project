@@ -10,11 +10,11 @@
                 发布时间：<span>{{posting.p_Date}}</span>
                 <form id="button" action="/deleteposting" method="GET">
                     <input type="number" value={{posting.id}} name="p" style="display:none">
-                    <input style="background-color:#68D389" type="submit" value="删除该贴">
+                    <input id="but_s"  type="submit" value="删除该贴">
                 </form>
                 <form id="button" action="/managecomment" method="GET">
                     <input type="number" value={{posting.id}} name="p" style="display:none">
-                    <input style="background-color:#68D389" type="submit" value="管理评论">
+                    <input id="but_s"  type="submit" value="管理评论">
                 </form>
             </div>
         {% endfor %}

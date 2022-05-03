@@ -1,6 +1,5 @@
 .mainblock {
     width: 50%;
-    height: 350px;
     margin: 50px auto;
     border-style: solid;
     border-radius: 16px;
@@ -8,9 +7,41 @@
     border-width: 2px;
 }
 
+.headportrait {
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+}
+
+#photo {
+    border-radius: 40px;
+    width: 150px;
+}
+
+.information {
+    text-align: center;
+}
+
+#inf_item {
+    margin: 10px 150px;
+}
+
+#inf_n {
+    width: 200px;
+}
+
+#inf_d {
+    width: 200px;
+    height: 100px;
+}
+
 #button {
-    width: 500px;
-    display: block;
+    background-color: #FFD100;
+    width: 100px;
+    height: 30px;
+    border: solid;
+    border-color: #fefefe;
+    border-radius: 10px;
 }
 
 .logout {
@@ -29,63 +60,13 @@
     margin: 20px auto;
 }
 
-.logout:hover,
-.alink:hover {
-    background-color: #68D389;
+.logout:hover {
+    background-color: #FFD100;
     color: white;
 }
 
 .alink {
-    color: #68D389;
+    color: black;
     text-decoration: none;
-}
-
-.chana {
-    height: 60px;
-    width: 100%;
-    float: left;
-    margin-top: 10px;
-    margin-left: 17px;
-}
-
-.button {
-    background-color: #68D389;
-    border-style: none;
-    height: 40px;
-    width: 70px;
-    font-weight: 500;
-    border-radius: 10px;
-    color: white;
-    float: right;
-    margin-right: 50px;
-    cursor: pointer;
-    display: none;
-}
-
-.input {
-    border-radius: 10px;
-    border-color: blue;
-    height: 40px;
-    width: 450px;
-    display: none;
-}
-
-.tabbar {
-    margin: 85px auto;
-    clear: both;
-    text-align: center;
-}
-
-.funbutton {
-    background-color: #68D389;
-    width: 100px;
-    color: white;
-    clear: both;
-    font-weight: 500;
-    cursor: pointer;
-    border-radius: 10px;
-    border-style: none;
-    display: inline-block;
-    padding: 6px;
-    margin: 0 15px 0 15px;
+    width: 50%;
 }

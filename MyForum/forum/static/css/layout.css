@@ -10,24 +10,18 @@
     cursor: pointer;
     float: left;
     color: #000;
-    width: 200px;
+    width: 20%;
     padding: 8px 16px;
-    text-decoration: none;
     text-align: center;
 }
 
 .nav_link {
     display: block;
-    width: 200px;
+    color: #000;
     text-decoration: none;
 }
 
 .nav_item:hover {
-    background-color: #68D389;
-    color: white;
-}
-
-.nav_link.active {
-    background-color: #4CAF50;
+    background-color: #FFD100;
     color: white;
 }

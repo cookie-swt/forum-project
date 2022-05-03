@@ -16,26 +16,26 @@
         </div>
         <ul class="nav" >
             <li class="nav_item" >
-                <a class="nav-link" href="{% url 'index' %}">首页</a>
+                <a class="nav_link" href="{% url 'index' %}">首页</a>
             </li>
             {% if user.is_authenticated %}
             <li class="nav_item">
-                <a class="nav-link" href="{% url 'addposting' %}">我要发帖</a>
+                <a class="nav_link" href="{% url 'addposting' %}">我要发帖</a>
             </li>
             <li class="nav_item" >
-                <a class="nav-link" href="{% url 'myself' %}">我是谁啊</a>
+                <a class="nav_link" href="{% url 'myself' %}">我是谁啊</a>
             </li>
             {% if user.is_superuser %}
             <li class="nav_item">
-                <a class="nav-link" href="{% url 'manage' %}">管理</a>
+                <a class="nav_link" href="{% url 'manage' %}">管理</a>
             </li>
             {% endif %}
             {% else %}
             <li class="nav_item">
-                <a class="nav-link" href="{% url 'login' %}">我要登录</a>
+                <a class="nav_link" href="{% url 'login' %}">我要登录</a>
             </li>
             <li class="nav_item" >
-                <a class="nav-link" href="{% url 'register' %}">我想注册</a>
+                <a class="nav_link" href="{% url 'register' %}">我想注册</a>
             </li>
             {% endif %}
         </ul>

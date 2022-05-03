@@ -1,4 +1,17 @@
 <link rel="stylesheet" href="../static/css/myself.css">
+<script>
+    //取消回车提交表单
+    $(document).on("keypress", ":input:not(textarea)", function(event) {
+    return event.keyCode != 13;
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        if(document.querySelector('#inf').value=" "){
+            document.querySelector('button').style.display='none';
+        }else{
+            document.querySelector('button').style.display='block';
+        }
+    });   
+</script>
 {% extends "layout.html" %}
 
 {% block body %}
@@ -6,17 +19,23 @@
         <div class="headportrait">
             <img id="photo" src="{{ user.photo_url }}"/>
             <div id="change">
-                <form action="/change" enctype="multipart/form-data" method="post">
-                <input type="file" name="u_icon">
-                <input type="submit" value="上传头像">
+                <form action="/change" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input  type="file" name="head">
+                    <input id="button" type="submit" value="修改头像">
+                </form>
             </div>
         </div>
-        <div class="informantion">
+        <div class="information">
             <form method="POST" action="/modify">
                 {% csrf_token %}
-                用户名：<input id="button" type="text" name="uname" value={{user.username}}>
-                个性签名：<input id="button" type="textarea" name="usig" value={{user.signature}}>
-                <input type="submit" value="确认修改">
+                <div id="inf_item">
+                昵 称 ： <input id="inf_n" type="text" name="uname" value={{user.username}}>
+                </div>
+                <div id="inf_item">
+                个性签名：<input id="inf_d" type="textarea" name="usig" value={{user.signature}}>
+                </div>
+                <input id="button" type="submit" value="确认修改">
             </form>
         </div>
     </div>

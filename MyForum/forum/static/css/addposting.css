@@ -1,8 +1,27 @@
 .addposting {
     border: solid;
     border-radius: 40px;
-    border-color: #68D389;
+    border-color: gray;
     width: 600px;
-    margin: auto;
+    margin: 100px auto;
     padding: 50px;
+}
+
+#but_t {
+    height: 20px;
+    width: 30%;
+}
+
+#but_c {
+    height: 100px;
+    width: 30%;
+}
+
+#but_s {
+    background-color: #FFD100;
+    border: solid;
+    border-color: white;
+    border-radius: 10px;
+    width: 100px;
+    height: 30px;
 }

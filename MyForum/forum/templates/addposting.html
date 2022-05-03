@@ -9,9 +9,9 @@
     <div class="addposting">
         <form action="/addposting" method="POST">
             {% csrf_token %}
-            <input type="text" name="t" placeholder="标题"> 
-            <input style="height:100px;width:500px" type="textarea" name="c" placeholder="内容">
-            <input type="submit" value="发布" >
+            <input id="but_t" type="text" name="t" placeholder="标题"> 
+            <input id="but_c" style="height:100px;width:500px" type="textarea" name="c" placeholder="内容">
+            <input id="but_s" type="submit" value="发布" >
         </form>
     </div>
 {% endblock %}

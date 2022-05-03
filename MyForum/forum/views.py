@@ -1,3 +1,4 @@
+from urllib import request
 from django.urls import reverse
 from sys import float_repr_style
 from django.db import IntegrityError
@@ -13,14 +14,18 @@ from django.contrib import auth
 
 #网站入口，登录或闲逛或注册
 def entry(request):
-    return render(request,'entry.html')
+    return render(request,'entry.html') 
 
 #首页，展示近期的帖子
 def index(request):
     user=request.user
     postings=Posting.objects.filter(p_See=1).all()
-    mypostings=Posting.objects.filter(landlord_id=user.id).all()
-    mycollections=Collection.objects.filter(User_id=user).all()
+    if user.is_authenticated:
+        mypostings=Posting.objects.filter(landlord_id=user.id).all()
+        mycollections=Collection.objects.filter(User_id=user).all()
+    else:
+        mypostings=None
+        mycollections=None
     return render(request,'index.html',{"postings":postings,"mypostings":mypostings,"mycollection":mycollections})
 
 #展示帖子的具体内容，评论等
@@ -100,6 +105,13 @@ def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
 
+#游客浏览网站
+def stroll(request):
+    user=request.user
+    if user.is_authenticated:
+        logout(request)
+    return HttpResponseRedirect(reverse("index"))
+
 #登录
 def log_view(request):
     if request.method=='POST':
@@ -149,8 +161,14 @@ def modify(request):
     })
 
 #上传头像
-def changeHeadportrait():
-    
+def changeHeadportrait(request):
+    head=request.FILES.get('head')
+    user=request.user
+    user.headportrait=head
+    user.save()
+    return render(request,'myself.html',{
+        "user" : user
+    })   
 
 #将帖子设置为仅自己可见
 def icansee(request):

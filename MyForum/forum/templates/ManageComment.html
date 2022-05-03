@@ -8,10 +8,10 @@
         <div id="c_content">
             {{comment.c_Content}}
         </div>
-        <div class="c_Like">
+        <div id="c_delete">
             <form method="GET" action="/deletecomment">
-                <input type="number" value={{comment.id}} name="c" style="display:none">
-                <input type="submit" value="删除该条评论">
+                <input type="hidden" value={{comment.id}} name="c">
+                <input id="but_s" type="submit" value="删除该条评论">
             </form>
         </div>
     </div>

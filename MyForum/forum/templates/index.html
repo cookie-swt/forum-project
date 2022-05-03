@@ -1,12 +1,14 @@
 <link rel="stylesheet" type="text/css" href ="/static/css/index.css">
+<link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
+<script src="/static/layui/layui.js"></script>
 {% extends "layout.html" %}
 {% block body %}
 <div class="body">
     {% if user.is_authenticated %}
-    <div class="side">
+    <div class="side-left">
         <div class="mine">
             <div id="u_headportrait">
-                <img style="width:100px;height:100px;" src="{{user.headportrait}}"/>
+                <img id="head" src="{{ user.photo_url }}"/>
             </div>
             <div id="u_information">
                 <p>用户昵称：{{user.username}}</p>
@@ -41,6 +43,23 @@
                 </div>
             </a>
         {% endfor %}
+    </div>
+    <div class="side-right">
+        <div id="calender">
+            <div class="newsbox f_l " id="test-n1">
+                <div class="newstitle"><span><a href="/zcfg/">+</a></span><b>日历</b></div>
+                    <script>
+                        layui.use('laydate', function () {
+                            var laydate = layui.laydate;
+                            laydate.render({
+                                elem: '#test-n1'
+                                , position: 'static'
+                            });
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
