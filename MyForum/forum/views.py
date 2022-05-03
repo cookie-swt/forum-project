@@ -11,27 +11,40 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import auth
 # Create your views here.
 
+#网站入口，登录或闲逛或注册
 def entry(request):
     return render(request,'entry.html')
 
+#首页，展示近期的帖子
 def index(request):
     user=request.user
-    postings=Posting.objects.filter().all()
+    postings=Posting.objects.filter(p_See=1).all()
     mypostings=Posting.objects.filter(landlord_id=user.id).all()
-    return render(request,'index.html',{"postings":postings,"mypostings":mypostings})
+    mycollections=Collection.objects.filter(User_id=user).all()
+    return render(request,'index.html',{"postings":postings,"mypostings":mypostings,"mycollection":mycollections})
 
+#展示帖子的具体内容，评论等
 def showPosting(request):
     no=request.GET['p']
     posting=Posting.objects.get(id=no)
     comments=Comment.objects.filter(c_Posting_id=posting).all()
     return render(request,'posting.html',{"posting":posting,"comments":comments})
 
-def like(request):
-    no=request.GET['p']
-    likes=Posting.objects.filter(id=no).values('p_Likes')
-    Posting.objects.filter(id=no).update(p_Likes=likes+1)
-    return True
+#重新加载展示帖子的网页
+def reloadPosting(request,no):
+    posting=Posting.objects.get(id=no)
+    comments=Comment.objects.filter(c_Posting_id=posting).all()
+    return render(request,'posting.html',{"posting":posting,"comments":comments})
 
+#为评论点赞
+def like(request):
+    no=request.GET['c']
+    comment=Comment.objects.get(id=no)
+    likes=comment.c_Likes
+    Comment.objects.filter(id=no).update(c_Likes=likes+1)
+    return reloadPosting(request,no)
+
+#评论帖子
 def addComment(request):
     no=request.GET['p']
     posting=Posting.objects.get(id=no)
@@ -40,19 +53,19 @@ def addComment(request):
     date=timezone.localdate()
     comment=Comment(c_User_id=user,c_Content=content,c_Date=date,c_Posting_id=posting)
     comment.save()
-    return showPosting(request)
+    return reloadPosting(request,no)
 
+#收藏帖子
 def collect(request):
     user=request.user
-    p=request.GET['p']
-    posting=Posting.objects.get(id=p)
-    if(Collection.objects.filter(User_id=user,Posting_id=posting) == None):
+    no=request.GET['p']
+    posting=Posting.objects.get(id=no)
+    if Collection(User_id=user,Posting_id=posting) is not None:
         collect=Collection(User_id=user,Posting_id=posting)
         collect.save()
-        return True
-    else : 
-        return False
+    return reloadPosting(request,no)
 
+#注册账号
 def register(request):
     if request.method =='POST':
         username=request.POST['username']
@@ -62,7 +75,7 @@ def register(request):
 
         if not( username and email and password and confirmation ):
             return render(request,'register.html',{
-                'message' : "什么都不输--君欲使我指雁为羹乎"
+                'message': "怎么什么都不输入，这可不行！"
             })
         if password==confirmation:
             try:
@@ -70,7 +83,7 @@ def register(request):
                 user.save()
             except IntegrityError:
                 return render(request,'register.html',{
-                    'message': "用户名已被占用--可以更改，请勿复吟“僧推月下门”"
+                    'message': "呜呜呜呜这个名字被人用啦！"
                 })
             login(request,user)
             return HttpResponseRedirect(reverse("index"))
@@ -81,11 +94,13 @@ def register(request):
     else:
         return render(request,'register.html')
 
+#退出登录
 @login_required
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
 
+#登录
 def log_view(request):
     if request.method=='POST':
         username=request.POST['username']
@@ -104,40 +119,44 @@ def log_view(request):
     else:
         return render(request,'login.html')
 
+#展示个人信息
 @login_required
 def Showmyself(request):
-    if request.method=='POST':
-        username=request.POST.get('username')
-        signature=request.POST.get('signature')
-        img=request.POST.get('img')
-        user=request.user
-        if username is not None:
-            try:
-                user.username=username
-                user.save()
-            except IntegrityError:
-                return render(request,'myself.html',{
-                    'user' : user,
-                    'message': "用户名已存在--可以更改，请勿复吟“僧推月下门”"
-                })
-        if signature is not None:
-            user.signature=signature
-            user.save()
-        if img is not None:
-            user.headportrait=img
-            user.save()
-        return render(request,'myself.html',{
-            "user" : user
-        })
     user=request.user
     return render(request,'myself.html',{
         "user" : user
     })
 
+#修改个人信息
+def modify(request):
+    username=request.POST.get('uname')
+    signature=request.POST.get('usig')
+    user=request.user
+    if username is not None:
+        try:
+            user.username=username
+            user.save()
+        except IntegrityError:
+            return render(request,'myself.html',{
+                'user' : user,
+                'message': "呜呜呜这个名字有人用啦！"
+            })
+    if signature is not None:
+        user.signature=signature
+        user.save()
+    return render(request,'myself.html',{
+        "user" : user
+    })
+
+#上传头像
+def changeHeadportrait():
+    
+
+#将帖子设置为仅自己可见
 def icansee(request):
     no=request.GET['p']
     Posting.objects.filter(id=no).update(p_See=False)
-    return True
+    return reloadPosting(request,no)
 
 
 #写帖子
@@ -153,6 +172,7 @@ def addPosting(request):
     else:
         return render(request,'addposting.html')
 
+#进入管理界面，可以管理帖子
 def manage(request):
     postings=Posting.objects.all()
     return render(request,'ManagePosting.html',{"postings":postings})
@@ -160,16 +180,25 @@ def manage(request):
 #删除帖子
 def deletePosting(request):
     no=request.GET['p']
-    posting=Posting.objects.filter(id=no).delete()
+    Posting.objects.filter(id=no).delete()
     return manage(request)
 
+#进入管理帖子的评论的界面，可以删除评论
 def manageComment(request):
     no=request.GET['p']
     posting=Posting.objects.get(id=no)
     comments=Comment.objects.filter(c_Posting_id=posting).all()
     return render(request,'ManageComment.html',{"comments":comments})
 
+#重新加载管理评论的界面
+def reloadManage(request,posting):
+    comments=Comment.objects.filter(c_Posting_id=posting).all()
+    return render(request,'ManageComment.html',{"comments":comments})
+
+#删除评论
 def deleteComment(request):
     no=request.GET['c']
-    comment=Comment.objects.filter(id=no).delete
-    return manageComment(request)
+    comment=Comment.objects.get(id=no)
+    p=comment.c_Posting_id
+    Comment.objects.filter(id=no).delete()
+    return reloadManage(request,p)

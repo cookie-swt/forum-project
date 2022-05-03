@@ -1,44 +1,26 @@
-{% load static %}
+<link rel="stylesheet" href="../static/css/myself.css">
+{% extends "layout.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/myself.css">
-    <title>{{user.username}}</title>
-    <script type="text/javascript" src="../static/js/myself.js"></script>
-</head>
-<body>
+{% block body %}
     <div class="mainblock">
-        <div class="name">
-            <span>用户名：</span>
-            <span>{{user.username}}</span>
-            {% if message %}
-            <span style="color: red; font-weight: 600; margin-left: 40px;">{{message}}</span>
-            {% endif %}
-            <div class="headpic">
-                <img src="{{user.headportrait}}" alt="还没有">
+        <div class="headportrait">
+            <img id="photo" src="{{ user.photo_url }}"/>
+            <div id="change">
+                <form action="/change" enctype="multipart/form-data" method="post">
+                <input type="file" name="u_icon">
+                <input type="submit" value="上传头像">
             </div>
         </div>
-        <div class="signature">
-            <span>签名：</span>
-            <span>{{user.signature}}</span>
-        </div>
-        <div class="chana">
-            <form action="{% url 'myself' %}" method="post">
+        <div class="informantion">
+            <form method="POST" action="/modify">
                 {% csrf_token %}
-                <input type="text" name="username" placeholder="修改用户名" class="input">
-                <input type="submit" id="subbtn" value="确定提交" class="button">
+                用户名：<input id="button" type="text" name="uname" value={{user.username}}>
+                个性签名：<input id="button" type="textarea" name="usig" value={{user.signature}}>
+                <input type="submit" value="确认修改">
             </form>
-        </div>
-        <div class="tabbar">
-            <button id="btn_name" class="funbutton">修改用户名</button> <button id="btn_sig" class="funbutton">修改签名</button> <button id="btn_img" class="funbutton">修改头像</button>
         </div>
     </div>
     <div class="logout">
         <a href="{% url 'logout' %} " class="alink">爷不待见了</a>
     </div>
-</body>
-</html>
+{% endblock %}

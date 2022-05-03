@@ -8,26 +8,9 @@
     border-width: 2px;
 }
 
-.name {
-    height: 70px;
-    margin: 10px auto 10px 27px;
-    font-size: 17px;
-    line-height: 70px;
-}
-
-.headpic {
-    height: 70px;
-    width: 70px;
-    float: right;
-    border-style: solid;
-    margin: 8px 20px 8px 17px;
-}
-
-.signature {
-    height: 70px;
-    line-height: 70px;
-    margin: 20px auto 10px 27px;
-    font-size: 17px;
+#button {
+    width: 500px;
+    display: block;
 }
 
 .logout {
