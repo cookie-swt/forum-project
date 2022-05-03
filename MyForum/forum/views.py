@@ -16,20 +16,21 @@ def entry(request):
 
 def index(request):
     user=request.user
-    postings=Posting.objects.filter(p_See=True).all()
+    postings=Posting.objects.filter().all()
     mypostings=Posting.objects.filter(landlord_id=user.id).all()
-    return render(request,'index.html',{postings:postings , mypostings:mypostings})
+    return render(request,'index.html',{"postings":postings,"mypostings":mypostings})
 
 def showPosting(request):
     no=request.GET['p']
-    posting=Posting.objects.get(id=posting.id)
+    posting=Posting.objects.get(id=no)
     comments=Comment.objects.filter(c_Posting_id=posting).all()
-    return render(request,'posting.html',{posting:posting,comments:comments})
+    return render(request,'posting.html',{"posting":posting,"comments":comments})
 
 def like(request):
     no=request.GET['p']
-    likes=Posting.objects.filter(id=posting.id).values('p_Likes')
-    posting=Posting.objects.filter(id=posting.id).update(p_Likes=likes+1)
+    likes=Posting.objects.filter(id=no).values('p_Likes')
+    Posting.objects.filter(id=no).update(p_Likes=likes+1)
+    return True
 
 def addComment(request):
     no=request.GET['p']
@@ -39,7 +40,7 @@ def addComment(request):
     date=timezone.localdate()
     comment=Comment(c_User_id=user,c_Content=content,c_Date=date,c_Posting_id=posting)
     comment.save()
-    return True
+    return showPosting(request)
 
 def collect(request):
     user=request.user
@@ -135,7 +136,7 @@ def Showmyself(request):
 
 def icansee(request):
     no=request.GET['p']
-    posting=Posting.objects.filter(id=no).update(p_See=False)
+    Posting.objects.filter(id=no).update(p_See=False)
     return True
 
 
@@ -148,27 +149,27 @@ def addPosting(request):
         date=timezone.localdate()
         posting=Posting(landlord_id=user,p_Title=title,p_Des=content,p_Date=date)
         posting.save()
-        return render(request, "posting.html",{posting:posting})
+        return render(request, "posting.html",{"posting":posting})
     else:
         return render(request,'addposting.html')
 
-def managePosting(request):
+def manage(request):
     postings=Posting.objects.all()
-    return render(request,'ManagePosting.html',{postings:postings})
+    return render(request,'ManagePosting.html',{"postings":postings})
 
 #删除帖子
 def deletePosting(request):
     no=request.GET['p']
     posting=Posting.objects.filter(id=no).delete()
-    return True
+    return manage(request)
 
 def manageComment(request):
     no=request.GET['p']
     posting=Posting.objects.get(id=no)
     comments=Comment.objects.filter(c_Posting_id=posting).all()
-    return render(request,'ManageComment.html',{comments:comments})
+    return render(request,'ManageComment.html',{"comments":comments})
 
 def deleteComment(request):
     no=request.GET['c']
     comment=Comment.objects.filter(id=no).delete
-    return True
+    return manageComment(request)

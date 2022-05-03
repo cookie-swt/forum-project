@@ -5,7 +5,7 @@
     <head>
         <title>{% block title %}Forum{% endblock %}</title>
     </head>
-    <body>
+    <body style="background-image: url({% static 'img/背景3.webp' %});background-size:100%;">
         <h1>欢迎来到mini树洞！</h1>
         <div>
             {% if user.is_authenticated %}
@@ -26,10 +26,17 @@
                 <a class="nav-link" href="{% url 'myself' %}">我是谁啊</a>
             </li>
             {% if user.is_superuser %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'manageposting' %}">管理</a>
+            <li class="nav_item">
+                <a class="nav-link" href="{% url 'manage' %}">管理</a>
             </li>
             {% endif %}
+            {% else %}
+            <li class="nav_item">
+                <a class="nav-link" href="{% url 'login' %}">我要登录</a>
+            </li>
+            <li class="nav_item" >
+                <a class="nav-link" href="{% url 'register' %}">我想注册</a>
+            </li>
             {% endif %}
         </ul>
         <hr>

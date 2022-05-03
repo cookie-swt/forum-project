@@ -1,12 +1,5 @@
-<script>
-    function comment(){
-        document.querySelector('.addcomment').style.display='block';
-    }
-</script>
-
-{% extends "layout.html" %}
-
 <link rel="stylesheet" type="text/css" href="/static/css/posting.css">
+{% extends "layout.html" %}
 
 {% block body %}
     <div class="firstfloor">
@@ -14,28 +7,27 @@
         <div id="date">
             发表于 : {{posting.p_Date}}
         </div>
-        <div id="describtion">
+        <div id="description">
             {{posting.p_Des}}
         </div>
-        <div id="collect">
+        <div id="button">
         {% if user.is_authenticated %}
             {% if user.id == posting.landlord_id.id %}
                 <form method="GET" action="/icansee">
-                    <input name="p" value={{posting.id}} type="number" style="display:none">
-                    <input type="submit" value="仅我可见">
+                    <input name="p" type="hidden" value={{posting.id}}>
+                    <input id="s_button" type="submit" value="仅我可见">
                 </from>
             {% endif %}
             {% if user.id != posting.landlord_id.id %}
                 <form method="GET" action="/collect">
-                    <input name="p" value={{posting.id}} type="number" style="display:none">
-                    <input type="submit" value="收藏">
+                    <input name="p" type="hidden" value={{posting.id}}>
+                    <input id="c_button" type="submit" value="收藏">
                 </from>
             {% endif %}
         {% endif %}
-            <button onclick="comment()">评论</button>
         </div>
     </div>
-    <div class="addcomment" style="display:none">
+    <div class="addcomment">
         <form method="GET" action="/addcomment">
             <input type="textarea" name="content" placeholder="我想说......">
             <input type="submit" value="评论">

@@ -5,6 +5,20 @@
     margin: 20px auto;
 }
 
+#date {
+    font-size: 20px;
+    color: grey;
+}
+
+#description {
+    margin: 5px;
+}
+
+.addcomment {
+    width: 800px;
+    margin: 20px auto;
+}
+
 .comment {
     width: 800px;
     border-bottom: dashed;

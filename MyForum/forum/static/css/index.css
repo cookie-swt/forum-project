@@ -1,43 +1,44 @@
 .side {
-    float: right;
-    width: 100px;
+    float: left;
+    width: 250px;
     border-right: solid;
     border-color: #68D389;
 }
 
 .mine {
-    width: 100px;
+    width: 250px;
+    border-bottom: solid;
+    border-color: #68D389;
 }
 
 #u_headportrait {
     float: left;
-    width: 50px;
-    height: 50px;
+    width: 250px;
+    text-align: center;
 }
 
 #u_information {
-    float: right;
-    width: 50px;
-    height: 50px;
+    text-align: center;
+    width: 250px;
 }
 
 .myposting {
-    width: 100px;
+    width: 250px;
     border-bottom: solid;
-    border-radius: 40px;
     border-color: #68D389;
 }
 
 .mycollection {
-    width: 100px;
+    width: 250px;
     border-bottom: solid;
-    border-radius: 40px;
     border-color: #68D389;
 }
 
 .postings {
     float: left;
+    padding: 30px;
     width: 800px;
+    display: block;
 }
 
 #posting {
