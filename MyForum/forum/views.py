@@ -181,7 +181,6 @@ def icansee(request):
     Posting.objects.filter(id=no).update(p_See=False)
     return reloadPosting(request,no)
 
-
 #写帖子
 def addPosting(request):
     if request.method == 'POST':
