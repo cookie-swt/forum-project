@@ -1,16 +1,9 @@
 <link rel="stylesheet" href="../static/css/myself.css">
 <script>
-    //取消回车提交表单
-    $(document).on("keypress", ":input:not(textarea)", function(event) {
-    return event.keyCode != 13;
-    });
-    document.addEventListener('DOMContentLoaded', function() {
-        if(document.querySelector('#inf').value=" "){
-            document.querySelector('button').style.display='none';
-        }else{
-            document.querySelector('button').style.display='block';
-        }
-    });   
+    function enable(){
+        document.getElementById("inf_field").disabled=false;
+        document.getElementById("i_button").style.display="inline";
+    }   
 </script>
 {% extends "layout.html" %}
 
@@ -22,20 +15,23 @@
                 <form action="/change" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <input  type="file" name="head">
-                    <input id="button" type="submit" value="修改头像">
+                    <input id="h_button" type="submit" value="修改头像">
                 </form>
             </div>
         </div>
         <div class="information">
-            <form method="POST" action="/modify">
+            <form method="POST" action="/modify" οnkeydοwn="if(event.keyCode==13){return false;}">
                 {% csrf_token %}
+                <fieldset id="inf_field" disabled=true>
                 <div id="inf_item">
-                昵 称 ： <input id="inf_n" type="text" name="uname" value={{user.username}}>
+                昵 称 : <input id="inf_n" type="text" name="uname" value={{user.username}}>
                 </div>
                 <div id="inf_item">
-                个性签名：<input id="inf_d" type="textarea" name="usig" value={{user.signature}}>
+                个性签名：<input id="inf_s" type="textarea" name="usig" value={{user.signature}}>
                 </div>
-                <input id="button" type="submit" value="确认修改">
+                </fieldset>
+                <input id="c_button" onclick="enable()" type="button" value="我要修改">
+                <input id="i_button" type="submit" value="保存">
             </form>
         </div>
     </div>
