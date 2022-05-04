@@ -6,11 +6,11 @@
 }
 
 #p_date {
-    font-size: 20px;
+    font-size: 15px;
     color: grey;
 }
 
-#description {
+#p_description {
     margin: 5px;
 }
 
@@ -31,7 +31,9 @@
     width: 500px;
 }
 
-#but_s {
+#s_submot,
+#co_submit,
+#c_submit {
     margin: 10px;
     background-color: #FFD100;
     border: solid;
@@ -61,15 +63,6 @@
 #c_date {
     color: gray;
     font-size: 13px;
-}
-
-#but_s {
-    background-color: #FFD100;
-    width: 100px;
-    height: 30px;
-    border: solid;
-    border-color: #fefefe;
-    border-radius: 10px;
 }
 
 #but_l {

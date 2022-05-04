@@ -7,15 +7,9 @@
     padding: 50px;
 }
 
-#but_t {
+#input_t,
+#input_c {
     height: 30px;
-    width: 30%;
-    display: block;
-    margin: 10px;
-}
-
-#but_c {
-    height: 100px;
     width: 30%;
     display: block;
     margin: 10px;

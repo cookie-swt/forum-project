@@ -23,7 +23,8 @@ h1 {
     text-align: center;
 }
 
-#button {
+#but_l,
+#but_s {
     background-color: #FFD100;
     height: 50px;
     width: 200px;

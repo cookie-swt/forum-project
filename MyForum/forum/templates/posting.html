@@ -14,25 +14,25 @@
 {% extends "layout.html" %}
 {% block body %}
     <div class="firstfloor">
-        <h1>{{posting.p_Title}}</h1>
+        <h2>{{posting.p_Title}}</h2>
         <div id="p_date">
             {{posting.landlord_id.username}} 发表于 : {{posting.p_Date}}
         </div>
-        <div id="description">
+        <div id="p_description">
             {{posting.p_Des}}
         </div>
-        <div id="button">
+        <div id="p_form">
         {% if user.is_authenticated %}
             {% if user.id == posting.landlord_id.id %}
                 <form method="GET" action="/icansee">
                     <input name="p" type="hidden" value={{posting.id}}>
-                    <input id="but_s" type="submit" value="仅我可见">
+                    <input id="s_submit" type="submit" value="仅我可见">
                 </form>
             {% endif %}
             {% if user.id != posting.landlord_id.id %}
                 <form method="GET" action="/collect">
                     <input name="p" type="hidden" value={{posting.id}}>
-                    <input id="but_s" type="submit" value="收藏">
+                    <input id="co_submit" type="submit" value="收藏">
                 </form>
             {% endif %}
         {% endif %}
@@ -42,7 +42,7 @@
         <form method="GET" action="/addcomment">
             <input name="p" type="hidden" value={{posting.id}}>
             <input id="c_input" type="textarea" name="content" placeholder="我想说......">
-            <input id="but_s" type="submit" value="评论">
+            <input id="c_submit" type="submit" value="评论">
         </form>        
     </div>
     {% for comment in comments %}

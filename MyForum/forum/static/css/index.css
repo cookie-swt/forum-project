@@ -1,10 +1,3 @@
-.side-left {
-    float: left;
-    width: 250px;
-    border-right: solid;
-    border-color: gray;
-}
-
 a:link {
     text-decoration: none;
     color: #000;
@@ -13,6 +6,19 @@ a:link {
 a:visited {
     text-decoration: none;
     color: #000;
+}
+
+#mylink:hover,
+#clink:hover {
+    color: #FFD100;
+    text-decoration: underline;
+}
+
+.side-left {
+    float: left;
+    width: 250px;
+    border-right: solid;
+    border-color: gray;
 }
 
 .mine {
