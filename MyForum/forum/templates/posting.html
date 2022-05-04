@@ -1,11 +1,13 @@
 <link rel="stylesheet" type="text/css" href="/static/css/posting.css">
 {% extends "layout.html" %}
-
+<script>
+    function()
+</script>
 {% block body %}
     <div class="firstfloor">
         <h1>{{posting.p_Title}}</h1>
         <div id="date">
-            发表于 : {{posting.p_Date}}
+            {{posting.landlord_id.username}} 发表于 : {{posting.p_Date}}
         </div>
         <div id="description">
             {{posting.p_Des}}
@@ -15,13 +17,13 @@
             {% if user.id == posting.landlord_id.id %}
                 <form method="GET" action="/icansee">
                     <input name="p" type="hidden" value={{posting.id}}>
-                    <input id="s_button" type="submit" value="仅我可见">
+                    <input id="but_s" type="submit" value="仅我可见">
                 </form>
             {% endif %}
             {% if user.id != posting.landlord_id.id %}
                 <form method="GET" action="/collect">
                     <input name="p" type="hidden" value={{posting.id}}>
-                    <input id="c_button" type="submit" value="收藏">
+                    <input id="but_s" type="submit" value="收藏">
                 </form>
             {% endif %}
         {% endif %}
@@ -36,22 +38,22 @@
     </div>
     {% for comment in comments %}
     <div class="comment">
+    <div class="c_Body">
         <div id="c_user">
-            <img src="{{comment.c_User_id.headportrait}}">
+            <img id="c_head" src="{{comment.c_User_id.photo_url}}">
             <p>{{comment.c_User_id.username}}</p>
         </div>
         <div id="c_content">
-            {{comment.c_Content}}
-        </div>
-        <div class="c_Date">
-            评论于 : {{comment.c_Date}}
-        </div>
-        <div class="c_Like">
-            <form method="GET" action="/like">
-                <input name="c" type="hidden" value={{comment.id}}>
-                <button id="like"><img src="https://s3.bmp.ovh/imgs/2022/04/29/72e97020c84f2106.png"></button>{{comment.c_Likes}}
-            </form>
+            <p>{{comment.c_Content}}</p>
+            <p>评论于 : {{comment.c_Date}}</p>
         </div>
     </div>
+    <div class="c_Like">
+        <form method="GET" action="/like">
+            <input name="c" type="hidden" value={{comment.id}}>
+            <button id="like" onclick="likeORdislike"><img id="but_l" src="static/img/dislike.png"></button> {{comment.c_Likes}}
+        </form>
+    </div>
+    <div>
     {% endfor %}
 {% endblock %}
