@@ -2,18 +2,16 @@
 <script>
     var flag=false;
     function like(){
-        var img=document.getElementById("but_l");
         if(flag){
-            img.src="static/img/dislike.png";
+            document.getElementById("but_l").src='static/img/dislike.png';
             flag=false;
         }else{
-            img.src="static/img/like.png";
+            document.getElementById("but_l").src='static/img/like.png';
             flag=true;
         }
     }
 </script>
 {% extends "layout.html" %}
-
 {% block body %}
     <div class="firstfloor">
         <h1>{{posting.p_Title}}</h1>
