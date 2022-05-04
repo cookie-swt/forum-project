@@ -4,7 +4,7 @@ from sys import float_repr_style
 from django.db import IntegrityError
 from django.shortcuts import render
 
-from .models import Collection, User, Posting, Comment
+from .models import Collection, User, Posting, Comment , Like
 from django.utils import timezone
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate,login,logout
@@ -45,9 +45,14 @@ def reloadPosting(request,no):
 def like(request):
     no=request.GET['c']
     comment=Comment.objects.get(id=no)
+    user=request.user
     likes=comment.c_Likes
-    Comment.objects.filter(id=no).update(c_Likes=likes+1)
-    return reloadPosting(request,no)
+    if Like.objects.filter(User_id=user,Comment_id=comment):
+        Comment.objects.filter(id=no).update(c_Likes=likes-1)
+    else:
+        Comment.objects.filter(id=no).update(c_Likes=likes+1)
+    p=comment.c_Posting_id
+    return reloadPosting(request,p.id)
 
 #评论帖子
 def addComment(request):

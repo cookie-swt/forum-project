@@ -6,24 +6,22 @@
     border-left: solid;
     border-right: solid;
     border-color: gray;
-    width: 70%;
+    width: 800px;
     margin: 30px auto;
-    text-align: center;
 }
 
 .posting {
-    width: 70%;
+    width: 750px;
     border-bottom: dashed;
     border-color: gray;
-    margin: 30px auto;
-    text-align: center;
+    padding: 25px 25px;
 }
 
 #but_s {
     background-color: #FFD100;
     width: 100px;
     height: 30px;
-    border: dashed;
+    border: solid;
     border-color: #fefefe;
     border-radius: 10px;
 }

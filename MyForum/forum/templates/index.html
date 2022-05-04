@@ -1,6 +1,4 @@
 <link rel="stylesheet" type="text/css" href ="/static/css/index.css">
-<link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
-<script src="/static/layui/layui.js"></script>
 {% extends "layout.html" %}
 {% block body %}
 <div class="body">
@@ -16,7 +14,7 @@
             </div>
         </div>
         <div class="myposting">
-            <h6>我的树洞</h6>
+            <h4>我的树洞</h4>
             {% for myposting in mypostings %}
             <a href="{% url 'showposting' %}?p={{myposting.id}}">
                 <p>{{myposting.p_Title}}</p>
@@ -24,7 +22,7 @@
             {% endfor %}
         </div>
         <div class="mycollection">
-            <h6>我的收藏</h6>
+            <h4>我的收藏</h4>
             {% for collection in mycollection %}
             <a href="{% url 'showposting' %}?p={{collection.Posting_id.id}}">
                 <p>{{collection.Posting_id.p_Title}}</p>
@@ -44,10 +42,12 @@
             </a>
         {% endfor %}
     </div>
+
+    <script src="/static/layui/layui.js"></script>
     <div class="side-right">
         <div id="calender">
             <div class="newsbox f_l " id="test-n1">
-                <div class="newstitle"><span><a href="/zcfg/">+</a></span><b>日历</b></div>
+                <div class="newstitle"><span><b>日历</b></div>
                     <script>
                         layui.use('laydate', function () {
                             var laydate = layui.laydate;

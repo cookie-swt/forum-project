@@ -16,9 +16,10 @@ a:visited {
 }
 
 .mine {
-    width: 250px;
+    width: 230px;
     border-bottom: solid;
     border-color: gray;
+    padding: 10px;
 }
 
 #head {
@@ -39,26 +40,34 @@ a:visited {
 }
 
 .myposting {
-    width: 250px;
+    width: 230px;
     border-bottom: solid;
     border-color: gray;
+    padding: 10px;
 }
 
 .mycollection {
-    width: 250px;
+    width: 230px;
     border-bottom: solid;
     border-color: gray;
+    padding: 10px;
 }
 
 .postings {
     float: left;
     padding: 30px;
-    width: 800px;
+    width: 600px;
     display: block;
 }
 
 #posting {
-    width: 700px;
+    width: 600px;
     border-bottom: dashed;
     border-color: gray;
+    padding: 10px;
+}
+
+.side-right {
+    float: right;
+    padding: 20px;
 }

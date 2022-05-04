@@ -19,14 +19,16 @@ h1 {
     padding: 50px;
     border: solid;
     border-radius: 40px;
-    border-color: #68D389;
+    border-color: gray;
     text-align: center;
 }
 
 #button {
-    background-color: #68D389;
+    background-color: #FFD100;
     height: 50px;
     width: 200px;
     border-radius: 20px;
+    border: solid;
+    border-color: white;
     color: white;
 }

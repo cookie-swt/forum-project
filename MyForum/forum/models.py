@@ -39,4 +39,6 @@ class Collection(models.Model):
     User_id=models.ForeignKey(User,on_delete=models.CASCADE)
     Posting_id=models.ForeignKey(Posting,on_delete=models.CASCADE)
 
-
+class Like(models.Model):
+    User_id=models.ForeignKey(User,on_delete=models.CASCADE)
+    Comment_id=models.ForeignKey(Comment,on_delete=models.CASCADE)

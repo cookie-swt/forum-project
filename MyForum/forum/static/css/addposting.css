@@ -8,16 +8,21 @@
 }
 
 #but_t {
-    height: 20px;
+    height: 30px;
     width: 30%;
+    display: block;
+    margin: 10px;
 }
 
 #but_c {
     height: 100px;
     width: 30%;
+    display: block;
+    margin: 10px;
 }
 
 #but_s {
+    margin: 10px;
     background-color: #FFD100;
     border: solid;
     border-color: white;
