@@ -48,6 +48,7 @@
     border: solid;
     border-color: #fefefe;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 #i_button {
