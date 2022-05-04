@@ -19,7 +19,7 @@ class User(AbstractUser):
         if self.new_headportrait and hasattr(self.new_headportrait, 'url'):
             return self.new_headportrait.url
         else:
-            return '/media/default/user.jpg'
+            return "media/default/user.png"
 
 class Posting(models.Model):
     landlord_id=models.ForeignKey(User,on_delete=models.CASCADE)

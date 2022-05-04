@@ -19,10 +19,10 @@ def entry(request):
 #首页，展示近期的帖子
 def index(request):
     user=request.user
-    postings=Posting.objects.filter(p_See=1).all()
+    postings=Posting.objects.filter(p_See=1).all().order_by('-id')
     if user.is_authenticated:
-        mypostings=Posting.objects.filter(landlord_id=user.id).all()
-        mycollections=Collection.objects.filter(User_id=user).all()
+        mypostings=Posting.objects.filter(landlord_id=user.id).all().order_by('-id')
+        mycollections=Collection.objects.filter(User_id=user).all().order_by('-id')
     else:
         mypostings=None
         mycollections=None
@@ -32,7 +32,7 @@ def index(request):
 def showPosting(request):
     no=request.GET['p']
     posting=Posting.objects.get(id=no)
-    comments=Comment.objects.filter(c_Posting_id=posting).all()
+    comments=Comment.objects.filter(c_Posting_id=posting).all().order_by('-c_Likes')
     return render(request,'posting.html',{"posting":posting,"comments":comments})
 
 #重新加载展示帖子的网页
@@ -199,7 +199,7 @@ def addPosting(request):
 
 #进入管理界面，可以管理帖子
 def manage(request):
-    postings=Posting.objects.all()
+    postings=Posting.objects.all().order_by('-id')
     return render(request,'ManagePosting.html',{"postings":postings})
 
 #删除帖子
@@ -212,7 +212,7 @@ def deletePosting(request):
 def manageComment(request):
     no=request.GET['p']
     posting=Posting.objects.get(id=no)
-    comments=Comment.objects.filter(c_Posting_id=posting).all()
+    comments=Comment.objects.filter(c_Posting_id=posting).all().order_by('-id')
     return render(request,'ManageComment.html',{"comments":comments})
 
 #重新加载管理评论的界面

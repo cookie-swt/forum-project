@@ -38,6 +38,7 @@
         {% endif %}
         </div>
     </div>
+    {% if user.is_authenticated %}
     <div class="addcomment">
         <form method="GET" action="/addcomment">
             <input name="p" type="hidden" value={{posting.id}}>
@@ -45,6 +46,7 @@
             <input id="c_submit" type="submit" value="评论">
         </form>        
     </div>
+    {% endif %}
     {% for comment in comments %}
     <div class="comment">
     <div class="c_Body">
@@ -57,12 +59,14 @@
             <p id="c_date">评论于 : {{comment.c_Date}}</p>
         </div>
     </div>
+    {% if user.is_authenticated %}
     <div class="c_Like">
         <form method="GET" action="/like">
             <input name="c" type="hidden" value={{comment.id}}>
             <button id="like" onclick="like()"><img id="but_l" src="static/img/dislike.png"/></button> {{comment.c_Likes}}
         </form>
     </div>
+    {% endif %}
     <div>
     {% endfor %}
 {% endblock %}
