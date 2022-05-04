@@ -48,8 +48,11 @@ def like(request):
     user=request.user
     likes=comment.c_Likes
     if Like.objects.filter(User_id=user,Comment_id=comment):
+        Like.objects.filter(User_id=user,Comment_id=comment).delete()
         Comment.objects.filter(id=no).update(c_Likes=likes-1)
     else:
+        like=Like(User_id=user,Comment_id=comment)
+        like.save()
         Comment.objects.filter(id=no).update(c_Likes=likes+1)
     p=comment.c_Posting_id
     return reloadPosting(request,p.id)

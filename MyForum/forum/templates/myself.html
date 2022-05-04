@@ -4,6 +4,9 @@
         document.getElementById("inf_field").disabled=false;
         document.getElementById("i_button").style.display="inline";
     }   
+    function submit(){
+        document.getElementById("inf_form").submit();
+    }
 </script>
 {% extends "layout.html" %}
 
@@ -20,7 +23,7 @@
             </div>
         </div>
         <div class="information">
-            <form method="POST" action="/modify" οnkeydοwn="if(event.keyCode==13){return false;}">
+            <form method="POST" action="/modify" id="inf_form">
                 {% csrf_token %}
                 <fieldset id="inf_field" disabled=true>
                 <div id="inf_item">
@@ -31,7 +34,7 @@
                 </div>
                 </fieldset>
                 <input id="c_button" onclick="enable()" type="button" value="我要修改">
-                <input id="i_button" type="submit" value="保存">
+                <input id="i_button" type="button" onclick="submit()" value="保存">
             </form>
         </div>
     </div>

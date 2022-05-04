@@ -21,5 +21,5 @@ urlpatterns=[
     path("manage",views.manage,name="manage"),
     path("deleteposting",views.deletePosting,name="deleteposting"),
     path("managecomment",views.manageComment,name="managecomment"),
-    path("deletecomment",views.deleteComment,name="deletecomment")
+    path("deletecomment",views.deleteComment,name="deletecomment"),
 ]

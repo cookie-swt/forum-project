@@ -1,8 +1,19 @@
 <link rel="stylesheet" type="text/css" href="/static/css/posting.css">
-{% extends "layout.html" %}
 <script>
-    function()
+    var flag=false;
+    function like(){
+        var img=document.getElementById("but_l");
+        if(flag){
+            img.src="static/img/dislike.png";
+            flag=false;
+        }else{
+            img.src="static/img/like.png";
+            flag=true;
+        }
+    }
 </script>
+{% extends "layout.html" %}
+
 {% block body %}
     <div class="firstfloor">
         <h1>{{posting.p_Title}}</h1>
@@ -51,7 +62,7 @@
     <div class="c_Like">
         <form method="GET" action="/like">
             <input name="c" type="hidden" value={{comment.id}}>
-            <button id="like" onclick="likeORdislike"><img id="but_l" src="static/img/dislike.png"></button> {{comment.c_Likes}}
+            <button id="like" onclick="like()"><img id="but_l" src="static/img/dislike.png"/></button> {{comment.c_Likes}}
         </form>
     </div>
     <div>
