@@ -15,7 +15,7 @@
 {% block body %}
     <div class="firstfloor">
         <h1>{{posting.p_Title}}</h1>
-        <div id="date">
+        <div id="p_date">
             {{posting.landlord_id.username}} 发表于 : {{posting.p_Date}}
         </div>
         <div id="description">
@@ -41,8 +41,8 @@
     <div class="addcomment">
         <form method="GET" action="/addcomment">
             <input name="p" type="hidden" value={{posting.id}}>
-            <input type="textarea" name="content" placeholder="我想说......">
-            <input type="submit" value="评论">
+            <input id="c_input" type="textarea" name="content" placeholder="我想说......">
+            <input id="but_s" type="submit" value="评论">
         </form>        
     </div>
     {% for comment in comments %}
@@ -54,7 +54,7 @@
         </div>
         <div id="c_content">
             <p>{{comment.c_Content}}</p>
-            <p>评论于 : {{comment.c_Date}}</p>
+            <p id="c_date">评论于 : {{comment.c_Date}}</p>
         </div>
     </div>
     <div class="c_Like">

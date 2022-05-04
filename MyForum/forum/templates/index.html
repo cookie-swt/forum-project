@@ -36,8 +36,8 @@
             <a href="{% url 'showposting' %}?p={{posting.id}}">
                 <div id="posting">
                     <h3>{{posting.p_Title}}</h3>
-                    <p>{{posting.p_Des}}</p>
-                    <p>发布于：{{posting.p_Date}}</p>
+                    <p id="des">{{posting.p_Des}}</p>
+                    <p id="date">发布于：{{posting.p_Date}}</p>
                 </div>
             </a>
         {% endfor %}

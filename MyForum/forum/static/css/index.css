@@ -67,6 +67,11 @@ a:visited {
     padding: 10px;
 }
 
+#date {
+    color: gray;
+    font-size: 10px;
+}
+
 .side-right {
     float: right;
     padding: 20px;

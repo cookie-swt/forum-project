@@ -5,7 +5,7 @@
     margin: 20px auto;
 }
 
-#date {
+#p_date {
     font-size: 20px;
     color: grey;
 }
@@ -26,6 +26,21 @@
     margin: 20px auto;
 }
 
+#c_input {
+    height: 80px;
+    width: 500px;
+}
+
+#but_s {
+    margin: 10px;
+    background-color: #FFD100;
+    border: solid;
+    border-color: white;
+    border-radius: 10px;
+    width: 100px;
+    height: 30px;
+}
+
 #c_user {
     border-left: solid;
     border-color: #FFD100;
@@ -41,6 +56,11 @@
 
 #c_content {
     margin: 10px 0;
+}
+
+#c_date {
+    color: gray;
+    font-size: 13px;
 }
 
 #but_s {
