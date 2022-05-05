@@ -1,3 +1,13 @@
+.firstfloor::-moz-selection {
+    background-color: #FFD100;
+    color: white;
+}
+
+.firstfloor::selection {
+    background-color: #FFD100;
+    color: white;
+}
+
 .firstfloor {
     width: 800px;
     border-bottom: solid;

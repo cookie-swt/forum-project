@@ -5,14 +5,23 @@
     width: 600px;
     margin: 100px auto;
     padding: 50px;
+    text-align: center;
 }
 
 #input_t,
 #input_c {
-    height: 30px;
-    width: 30%;
+    margin: 10px auto;
     display: block;
-    margin: 10px;
+}
+
+#input_t {
+    height: 30px;
+    width: 500px;
+}
+
+#input_c {
+    width: 500px;
+    height: 100px;
 }
 
 #but_s {
