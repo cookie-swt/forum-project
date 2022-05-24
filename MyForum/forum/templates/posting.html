@@ -54,11 +54,6 @@
             <img id="c_head" src="{{comment.c_User_id.photo_url}}">
             <div>
                 {{comment.c_User_id.username}}
-                <form method="GET" action="/chat">
-                    <input name="u" type="hidden" value={{comment.c_User_id.id}}>
-                    <input type="submit" value="私信">
-                </form>
-                {{ endif }}
             </div>
         </div>
         <div id="c_content">

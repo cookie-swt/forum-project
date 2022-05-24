@@ -25,6 +25,9 @@
             <li class="nav_item" >
                 <a class="nav_link" href="{% url 'myself' %}">我是谁啊</a>
             </li>
+            <li class="nav_item" >
+                <a class="nav_link" href="{% url 'chat' %}">聊天室</a>
+            </li>
             {% if user.is_superuser %}
             <li class="nav_item">
                 <a class="nav_link" href="{% url 'manage' %}">管理</a>
