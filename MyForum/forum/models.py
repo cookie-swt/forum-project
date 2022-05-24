@@ -7,8 +7,9 @@ from imagekit.processors import ResizeToFill
 
 
 class User(AbstractUser):
+    is_online=models.BooleanField(default=0)
     headportrait=models.ImageField('头像',upload_to = 'avatar/%Y%m%d/', blank = True, null = True)
-    signature=models.CharField(max_length=50)
+    signature=models.CharField(max_length=50,default="他貌似没什么想说的呢...")
     new_headportrait = ImageSpecField( # 注意：ImageSpecField 不会生成数据库表的字段
         source = 'headportrait',
         processors = [ResizeToFill(200, 200)],  # 处理成一寸照片的大小

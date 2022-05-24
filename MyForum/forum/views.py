@@ -3,8 +3,9 @@ from django.urls import reverse
 from sys import float_repr_style
 from django.db import IntegrityError
 from django.shortcuts import render
+from pkg_resources import require
 
-from .models import Collection, User, Posting, Comment , Like
+from .models import Collection,  User, Posting, Comment, Like
 from django.utils import timezone
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate,login,logout
@@ -110,6 +111,9 @@ def register(request):
 #退出登录
 @login_required
 def logout_view(request):
+    user=request.user
+    user.is_online=0
+    user.save()
     logout(request)
     return HttpResponseRedirect(reverse("index"))
 
@@ -128,7 +132,7 @@ def log_view(request):
         user=authenticate(request,username=username,password=password)
 
         if user is not None:
-            auth_obj=authenticate(request,username=username,password=password)
+            auth_obj=authenticate(request,username=username,password=password,is_online=1)
             if auth_obj:
                 auth.login(request,auth_obj)
             return HttpResponseRedirect(reverse("index"))
@@ -227,3 +231,8 @@ def deleteComment(request):
     p=comment.c_Posting_id
     Comment.objects.filter(id=no).delete()
     return reloadManage(request,p)
+
+
+#私信
+def chat(request):
+    return render(request,"chat.html")

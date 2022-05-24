@@ -47,17 +47,15 @@
     <div class="side-right">
         <div id="calender">
             <div class="newsbox f_l " id="test-n1">
-                <div class="newstitle"><span><b>日历</b></div>
-                    <script>
-                        layui.use('laydate', function () {
-                            var laydate = layui.laydate;
-                            laydate.render({
-                                elem: '#test-n1'
-                                , position: 'static'
-                            });
+                <script>
+                    layui.use('laydate', function () {
+                        var laydate = layui.laydate;
+                        laydate.render({
+                            elem: '#test-n1'
+                            , position: 'static'
                         });
-                    </script>
-                </div>
+                    });
+                </script>
             </div>
         </div>
     </div>

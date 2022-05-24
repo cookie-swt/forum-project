@@ -22,4 +22,5 @@ urlpatterns=[
     path("deleteposting",views.deletePosting,name="deleteposting"),
     path("managecomment",views.manageComment,name="managecomment"),
     path("deletecomment",views.deleteComment,name="deletecomment"),
+    path("chat",views.chat,name="chat"),
 ]
