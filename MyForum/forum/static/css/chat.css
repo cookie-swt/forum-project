@@ -1,0 +1,86 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #d2d2d2;
+}
+
+.container {
+    /*自身的样式*/
+    width: 70%;
+    min-width: 500px;
+    margin: 5vh auto 0;
+    box-shadow: #b9b9b9 0 0 6px 4px;
+    background-color: white;
+    border-radius: 6px;
+    overflow: hidden;
+    /*内部元素的布局*/
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    padding: 6px 0;
+    text-align: center;
+}
+
+.body {
+    /*自身样式*/
+    height: 86vh;
+    border-top: 1px solid #aaa;
+    /*内部元素的布局方式*/
+    display: flex;
+}
+
+.body .firend-list {
+    border-right: 1px solid #aaa;
+    background: #eee;
+    width: 20%;
+    min-width: 200px;
+}
+
+.body .chat {
+    background: #eee;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.body .chat .chat-main {
+    flex-grow: 1;
+}
+
+.body .chat .chat-send {
+    height: 200px;
+    border-top: 2px solid #ccc;
+    display: flex;
+    flex-direction: column;
+}
+
+.body .chat-send .chat-input {
+    resize: none;
+    flex-grow: 1;
+    border: none;
+    padding: 0.5em;
+    font-size: large;
+}
+
+.body .chat-send .chat-input:focus {
+    outline: none;
+}
+
+.body .chat-send .chat-send-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5em;
+    font-size: small;
+    color: #bdbdbd;
+    background: #fff;
+}
+
+.body .chat-send-bottom .chat-send-btn {
+    padding: 0.2em 1em;
+}
