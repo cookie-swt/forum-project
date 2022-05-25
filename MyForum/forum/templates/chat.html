@@ -7,8 +7,17 @@
     <body>
     <div class="container">
         <div class="header">
-            <span id="user">{{user.username}}</span>，欢迎进入聊天室！
-            <button onclick="quit()">退出聊天室</button>    
+            <div id="user_info">
+                <span id="username">{{user.username}}</span>
+                <a id="quit" onclick="quit()" href="#">退出</a> 
+            </div>
+            <span id="hello_text"></span> 
+            <div id="connection_status">
+                <span id="connecting" class="status" style="color: #777;">● 正在连接</span>
+                <span id="connected" class="status" style="display: none; color: #03af20;">● 已连接</span>
+                <span id="stop" class="status" style="display: none; color: red;">● 连接断开</span>
+                <span id="error" class="status" style="display: none; color: red;">● 连接意外中断</span>
+            </div>
         </div>
         <div class="body">
             <div class="firend-list"></div>
@@ -24,35 +33,90 @@
             </div>
         </div>
     </div>
-    
+    <script type="text/javascript" src="/static/libs/jquery.js"></script>
     <script type="text/javascript">
         var ws;  // WebSocket连接对象
         var ws_url = 'ws://localhost:8000/';
-        // 消息内容显示
-        var chat_main = document.getElementsByClassName('chat-main')[0];
+        var currentChat = ''; //当前聊天对象
+        var username = document.getElementById('user').innerText;
+
+        //设置状态
+        var setStatus = function(status){
+            $('#connection_status .status').hide();
+            $('#connection_status #' + status).show();
+        }
+
+        //点击用户事件
+        $('.friend-list').on('click', '.friend',function(){
+            if(!$(this).hasClass('active')){
+                //标记点击了谁
+                $('.friend').removeClass('active');
+                $(this).addClass('active');
+                //创建或切换到对应的聊天界面上
+                var username = $(this).text();
+                var charCard = $(`.chat-main .chat-card[data-target="${username}"]`);
+                if (chatCard.length == 0){
+                    //聊天界面不存在，创建一个
+                    chatCard = $(`<div class="chat-card" data-target="${username}"></div>`);
+                    $('.chat-main').append(chatCard);
+                }
+                //隐藏之前的卡片
+                $('.chat-main .chat-card').removeClass('active');
+                //显示当前的卡片
+                chatCard.addClass('active');
+                //显示和谁聊天
+                $('#hello_text').text(`正在和“${username}"聊天`);
+                currentChar = username;
+            }
+        }) 
 
         window.onload = function () {
-            var user = document.getElementById('user');
-            var username = user.innerText
+            var hello_text = document.getElementById('hello_text');
+            hello_text.innerText = ',欢迎加入聊天室！';
+
             // 建立WebSocket连接
-            ws = new WebSocket(ws_url + '?auth=' + username);
-            // 定义事件
-            ws.onopen = function(e) {
-                console.log('WebSocket建立连接成功');
-                addMessage('系统通知: 成功加入聊天室');
+            ws = connect(ws_url + '?auth=' + username);
+        }
+        //建立连接
+        function connect(ws_url){
+            //建立websocket连接
+            var ws = new WebSocket(ws_url);
+            //定义事件
+            ws.onopen = function(e){
+                $('#username').text(`嗨！${username}`)
+                setStatus('connected');
             }
-            ws.onmessage = function(e) {
-                console.log('WebSocket收到消息:', e.data);
-                addMessage('收到消息: ' + e.data);
+            ws.onmessage = function(e){
+                var message = JSON.parse(e.data);
+                //消息类型
+                if(message.sender == 'system'){
+                    if (message.contentType == 'text'){
+                        console.log(message.content);
+                    }
+                    else if(message.contentType == 'friendsList'){
+                    //加载好友列表
+                    loadFriendsList(message.content);
+                    }
+                    else if(message.contentType == 'addUser'){
+                        addUser(message.content);
+                    }
+                    else if(message.contentType == 'removeUser'){
+                        removeUser(message.content);
+                    }
+                }
+                else{
+                    addMessage(message.sender,message.sender,message.content);
+                }
             }
             ws.onclose = function(e) {
-                console.log('WebSocket连接中断');
-                addMessage('系统通知: 聊天室链接已断开');
+                console.log('连接中断');
+                setStatus('stop');
             }
             ws.onerror = function(e) {
-                console.log('WebSocket错误', e);
-                addMessage('系统通知: 发生错误, 聊天室链接已断开');
+                console.log('错误', e);
+                setStatus('error');
             }
+            return ws;
         }
 
         // "发送"按钮点击事件
@@ -62,9 +126,15 @@
             var text = input.value;
 
             // 发送文本消息
+            var message = {
+                sendTo:currentChat,
+                contentType:'text',
+                content:text
+            }
+
             var result = sendMessage(text);
             if (result) {
-                addMessage('发送消息: ' + text);
+                addMessage(currentChat,username,text);
                 input.value = '';
             }
         }
@@ -85,11 +155,15 @@
                     // 阻止默认行为
                     event.preventDefault();
                     // Enter 发送消息
-                    
-                    // 发送消息
+                    var message = {
+                    sendTo:currentChat,
+                    contentType:'text',
+                    content:text
+                    }
+
                     var result = sendMessage(text);
                     if (result) {
-                        addMessage('发送消息: ' + text);
+                        addMessage(currentChat,username,text);
                         input.value = '';
                     }
                 }
@@ -97,21 +171,51 @@
         }
 
         // 发送消息的函数
-        function sendMessage(text) {
+        function sendMessage(message) {
             if (!ws) {return false;}
             if (ws.readyState != ws.OPEN) {return false;}
-            if (text == '') {return false;}
-            ws.send(text);
+            //检查消息
+            message.content = message.content.trim();
+            if (message.content == '') {return false;}
+            ws.send(JSON.stringify(message));
             return true;
         }
 
         // 把消息加入到聊天界面
-        function addMessage(text) {
-            var message = document.createElement('p');
-            message.innerText = text;
-            chat_main.appendChild(message);
+        function addMessage(target,sender,text) {
+            var chatCard = $(`.chat-main .chat-card[data-target="${target}"]`);
+            var message = $('<p>').text(`${sender}:${text}`);
+            chatCard.append(message);
+        }
+        //加载好友列表
+        function loadFriendsList(friendsList){
+            var friendsListContainer = $('.friend-list');
+            friendsListContainer.empty();
+
+            for (var i = 0; i < friendsList.length; i ++) {
+                var friend = friendsList[i];
+                var friendObj = $(`<div class="friend">${friend}</div>`);
+                friendsListContainer.append(friendObj);
+                // 创建聊天卡片
+                var chatCard = $(`<div class="chat-card" data-target="${friend}"></div>`);
+                $('.chat-main').append(chatCard);
+            }
+        }
+        // 添加好友
+        function addFriend(username) {
+            var friendsListContainer = $('.friend-list');
+            var friendObj = $(`<div class="friend">${username}</div>`);
+            friendsListContainer.append(friendObj);
+            // 创建聊天卡片
+            var chatCard = $(`<div class="chat-card" data-target="${username}"></div>`);
+            $('.chat-main').append(chatCard);
         }
 
+        // 移除好友
+        function removeFriend(username) {
+            $(`.friend:contains(${username})`).remove();
+            $(`.chat-card[data-target=${username}]`).remove();
+        }
         // 注销函数
         function quit () {
             // 关闭WebSocket
@@ -121,10 +225,10 @@
                 }
             }
             // 跳转页面
-            localStorage.removeItem('nickname');
+            localStorage.removeItem('username');
             window.location.href = './index.html';
         }
     </script>
-    
+
     </body>
 </html>

@@ -1,8 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-}
-
 body {
     background: #d2d2d2;
 }
@@ -24,6 +19,18 @@ body {
 .header {
     padding: 6px 0;
     text-align: center;
+    position: relative;
+}
+
+.header #user_info {
+    position: absolute;
+    left: 0.5em;
+}
+
+.header #connection_status {
+    position: absolute;
+    top: 0.4em;
+    right: 0.7em;
 }
 
 .body {
@@ -34,11 +41,26 @@ body {
     display: flex;
 }
 
-.body .firend-list {
+.body .friend-list {
     border-right: 1px solid #aaa;
-    background: #eee;
+    background: #f4f4f4;
     width: 20%;
     min-width: 200px;
+}
+
+.body .friend-list .friend {
+    border-bottom: 1px solid #ccc;
+    padding: 1em;
+    background: #f4f4f4;
+    cursor: pointer;
+}
+
+.body .friend-list .friend:hover {
+    background: #eee;
+}
+
+.body .friend-list .friend.active {
+    background: #ccc;
 }
 
 .body .chat {
@@ -50,6 +72,17 @@ body {
 
 .body .chat .chat-main {
     flex-grow: 1;
+}
+
+.body .chat-main .chat-card {
+    background: #fafafa;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.body .chat-main .chat-card.active {
+    display: block;
 }
 
 .body .chat .chat-send {
